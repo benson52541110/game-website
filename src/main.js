@@ -18,7 +18,10 @@ import './bus';
 /* 貨幣和時間篩選 */
 import currencyFilter from './filters/currency';
 import dateFilter from './filters/date';
+import VueAwesomeSwiper from 'vue-awesome-swiper';
+import "swiper/css/swiper.css"
 
+Vue.use(VueAwesomeSwiper);
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
@@ -35,7 +38,9 @@ axios.defaults.withCredentials = true;
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>',
 });
 

@@ -17,11 +17,13 @@
     "node-sass": "^4.9.0",
     "popper.js": "^1.16.1",
     "sass-loader": "^7.0.3",
+    "swiper": "5.4.5",
     "vee-validate": "^2.1.0-beta.4",
-    "vue": "^2.5.2",
-    "vue-axios": "^2.1.1",
+    "vue": "^2.6.12",
+    "vue-awesome-swiper": "^2.6.7",
+    "vue-axios": "^2.1.5",
     "vue-loading-overlay": "^2.1.0",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.5.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
