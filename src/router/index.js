@@ -7,7 +7,15 @@ import Coupons from '@/components/admin/Coupons';
 import Orders from '@/components/admin/Orders';
 import CustomerOrder from '@/components/admin/CustomerOrders';
 import CustomerCheckout from '@/components/admin/CustomerCheckout';
+import FrontEnd from '@/components/FrontEnd';
 import Main from '@/components/front/Main';
+import NewProduct from '@/components/front/NewProduct';
+import Cart from '@/components/front/Cart';
+import CartInfo from '@/components/front/CartInfo';
+import OrderCheck from '@/components/front/OrderCheck';
+import OrderForm from '@/components/front/OrderForm';
+
+
 
 Vue.use(Router);
 
@@ -28,9 +36,41 @@ export default new Router({
     },
 
     {
-      path: '/Main',
-      name: 'Main',
-      component: Main,
+      path: '/frontEnd',
+      name: 'FrontEnd',
+      component: FrontEnd,
+      children: [
+        {
+          path: 'Main',
+          name: 'Main',
+          component: Main,
+        },
+        {
+          path: 'NewProduct',
+          name: 'NewProduct',
+          component: NewProduct,
+        },
+        {
+          path: 'Cart',
+          name: 'Cart',
+          component: Cart,
+        },
+        {
+          path: 'Cart/:cardId',
+          name: 'CartInfo',
+          component: CartInfo,
+        },
+        {
+          path: 'OrderCheck',
+          name: 'OrderCheck',
+          component: OrderCheck,
+        },
+        {
+          path: 'OrderForm',
+          name: 'OrderForm',
+          component: OrderForm,
+        },
+      ]
     },
 
     {

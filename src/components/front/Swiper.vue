@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper mt-5">
+  <div class="wrapper">
     <swiper :options="swiperOptions">
       <swiper-slide class="slide" :key="item.id" v-for="item in swiperList">
         <img class="swiper-img" :src="item.imgUrl">
@@ -19,7 +19,10 @@
         swiperOptions: {
           pagination: '.swiper-pagination',
           loop: true,
-          autoplay:4000,
+          autoplay: {
+          delay: 3000,
+          disableOnInteraction: false
+          },
           effect:'fade',
           navigation: {
           nextEl: '.swiper-button-next',

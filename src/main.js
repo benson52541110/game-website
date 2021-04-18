@@ -19,7 +19,8 @@ import './bus';
 import currencyFilter from './filters/currency';
 import dateFilter from './filters/date';
 import VueAwesomeSwiper from 'vue-awesome-swiper';
-import "swiper/css/swiper.css"
+import 'swiper/css/swiper.min.css';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 Vue.use(VueAwesomeSwiper);
 Vue.config.productionTip = false;
@@ -27,7 +28,7 @@ Vue.use(VueAxios, axios);
 
 VeeValidate.Validator.localize('zh_TW', zhTWValidate);
 Vue.use(VeeValidate);
-
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('Loading', Loading);
 Vue.filter('currency', currencyFilter);
 Vue.filter('date', dateFilter);
