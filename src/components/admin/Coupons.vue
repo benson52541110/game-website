@@ -12,7 +12,7 @@
           <th>名稱</th>
           <th>折扣百分比</th>
           <th>到期日</th>
-          <th>是否啟用</th>
+          <th>是否過期</th>
           <th>編輯</th>
         </tr>
       </thead>
@@ -22,8 +22,8 @@
           <td>{{ item.percent }}%</td>
           <td>{{ item.due_date | date }}</td>
           <td>
-            <span v-if="item.is_enabled === 1" class="text-success">啟用</span>
-            <span v-else class="text-muted">未起用</span>
+            <span v-if="item.is_enabled === 1" class="text-success">可使用</span>
+            <span v-else class="text-muted">已過期</span>
           </td>
           <td>
             <button class="btn btn-outline-primary btn-sm"
@@ -71,7 +71,7 @@
                   :false-value="0"
                   v-model="tempCoupon.is_enabled" id="is_enabled">
                 <label class="form-check-label" for="is_enabled">
-                  是否啟用
+                  可否使用
                 </label>
               </div>
             </div>
@@ -106,6 +106,7 @@ export default {
       },
       due_date: new Date(),
       isNew: false,
+      isLoading:true,
     };
   },
   watch: {
@@ -134,7 +135,7 @@ export default {
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupons`;
       this.$http.get(url, vm.tempProduct).then((response) => {
         vm.coupons = response.data.coupons;
-        console.log(response);
+        vm.isLoading = false;
       });
     },
     updateCoupon() {
@@ -142,7 +143,6 @@ export default {
       if (vm.isNew) {
         const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupon`;
         this.$http.post(url, { data: vm.tempCoupon }).then((response) => {
-          console.log(response, vm.tempCoupon);
           $('#couponModal').modal('hide');
           this.getCoupons();
         });
@@ -150,7 +150,6 @@ export default {
         const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
         vm.due_date = new Date(vm.tempCoupon.due_date * 1000);
         this.$http.put(url, { data: vm.tempCoupon }).then((response) => {
-          console.log(response);
           $('#couponModal').modal('hide');
           this.getCoupons();
         });

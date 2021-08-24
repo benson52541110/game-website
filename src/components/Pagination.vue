@@ -32,8 +32,7 @@ export default {
   props: ['pages'],
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      uid: '',
+      
     };
   },
   methods: {

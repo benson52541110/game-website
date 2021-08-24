@@ -9,27 +9,27 @@
     <table class="table mt-4">
       <thead>
         <tr>
-          <th width="120">分類</th>
-          <th>產品名稱</th>
-          <th width="120">原價</th>
-          <th width="120">售價</th>
-          <th width="100">是否啟用</th>
-          <th width="80">編輯</th>
+          <th width="150">分類</th>
+          <th width="250">產品名稱</th>
+          <th width="100">原價</th>
+          <th width="100">售價</th>
+          <th width="100">存貨</th>
+          <th width="80"></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item) in products" :key="item.id">
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
-          <td class="text-right">
+          <td>
             {{ item.origin_price | currency }}
           </td>
-          <td class="text-right">
+          <td>
             {{ item.price | currency }}
           </td>
           <td>
-            <span v-if="item.is_enabled" class="text-success">啟用</span>
-            <span v-else>未啟用</span>
+            <span v-if="item.is_enabled" class="text-success">有貨</span>
+            <span v-else>缺貨</span>
           </td>
           <td>
             <div class="btn-group">
@@ -63,15 +63,18 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="image">輸入圖片網址</label>
-                  <input type="text" class="form-control" id="image"
-                    v-model="tempProduct.imageUrl"
+                  <input type="text" class="form-control mt-2" id="image"
+                    v-model="tempProduct.imageUrl" name="imageUrl"
+                    :class="{'is-invalid': errors.has('imageUrl')}" v-validate="'required'"
                     placeholder="請輸入圖片連結">
+                    <span class="text-danger" v-if="errors.has('imageUrl')">連結不得為空</span>
+
                 </div>
                 <div class="form-group">
                   <label for="customFile">或 上傳圖片
                     <i class="fas fa-spinner fa-spin" v-if="status.fileUploading"></i>
                   </label>
-                  <input type="file" id="customFile" class="form-control"
+                  <input type="file" id="customFile" class="form-control mt-2"
                     ref="files" @change="uploadFile">
                 </div>
                 <img class="img-fluid" :src="tempProduct.imageUrl" alt="">
@@ -79,21 +82,27 @@
               <div class="col-sm-8">
                 <div class="form-group">
                   <label for="title">標題</label>
-                  <input type="text" class="form-control" id="title"
+                  <input type="text" class="form-control mt-2" id="title"
                     v-model="tempProduct.title"
+                    name="title"
+                    :class="{'is-invalid': errors.has('title')}" v-validate="'required'"
                     placeholder="請輸入標題">
+                    <span class="text-danger" v-if="errors.has('title')">標題不得為空</span>
                 </div>
 
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="category">分類</label>
-                    <input type="text" class="form-control" id="category"
+                    <input type="text" class="form-control mt-2" id="category"
                       v-model="tempProduct.category"
+                      name="category"
+                    :class="{'is-invalid': errors.has('category')}" v-validate="'required'"
                       placeholder="請輸入分類">
+                      <span class="text-danger" v-if="errors.has('category')">分類不得為空</span>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="price">單位</label>
-                    <input type="unit" class="form-control" id="unit"
+                    <input type="unit" class="form-control mt-2" id="unit"
                       v-model="tempProduct.unit"
                       placeholder="請輸入單位">
                   </div>
@@ -102,30 +111,42 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                   <label for="origin_price">原價</label>
-                    <input type="number" class="form-control" id="origin_price"
+                    <input type="number" class="form-control mt-2" id="origin_price"
                       v-model="tempProduct.origin_price"
+                      name="origin_price"
+                    :class="{'is-invalid': errors.has('origin_price')}" v-validate="'required'"
                       placeholder="請輸入原價">
+                      <span class="text-danger" v-if="errors.has('origin_price')">原價不得為空</span>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="price">售價</label>
-                    <input type="number" class="form-control" id="price"
+                    <input type="number" class="form-control mt-2" id="price"
                       v-model="tempProduct.price"
+                      name="price"
+                    :class="{'is-invalid': errors.has('price')}" v-validate="'required'"
                       placeholder="請輸入售價">
+                      <span class="text-danger" v-if="errors.has('price')">售價不得為空</span>
                   </div>
                 </div>
                 <hr>
 
                 <div class="form-group">
                   <label for="description">產品描述</label>
-                  <textarea type="text" class="form-control" id="description"
+                  <textarea rows="4" type="text" class="form-control mt-2" id="description"
                     v-model="tempProduct.description"
+                    name="description"
+                    :class="{'is-invalid': errors.has('description')}" v-validate="'required'"
                     placeholder="請輸入產品描述"></textarea>
+                    <span class="text-danger" v-if="errors.has('description')">產品描述不得為空</span>
                 </div>
                 <div class="form-group">
                   <label for="content">說明內容</label>
-                  <textarea type="text" class="form-control" id="content"
+                  <textarea rows="4" type="text" class="form-control mt-2" id="content"
                     v-model="tempProduct.content"
+                    name="content"
+                    :class="{'is-invalid': errors.has('content')}" v-validate="'required'"
                     placeholder="請輸入產品說明內容"></textarea>
+                    <span class="text-danger" v-if="errors.has('content')">說明內容不得為空</span>
                 </div>
                 <div class="form-group">
                   <div class="form-check">
@@ -135,7 +156,7 @@
                       :false-value="0"
                       id="is_enabled">
                     <label class="form-check-label" for="is_enabled">
-                      是否啟用
+                      是否有貨
                     </label>
                   </div>
                 </div>
@@ -199,10 +220,8 @@ export default {
     getProducts(page = 1) {
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products?page=${page}`; // 'http://localhost:3000/api/casper/products';
       const vm = this;
-      console.log(process.env.APIisLoadingPATH, process.env.CUSTOMPATH);
       vm.isLoading = true;
       this.$http.get(api).then((response) => {
-        console.log(response.data);
         if (response.data.success) {
           vm.isLoading = false;
           vm.products = response.data.products;
@@ -229,11 +248,13 @@ export default {
         httpMethod = 'put';
       }
       console.log(process.env.APIPATH, process.env.CUSTOMPATH);
-      this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
-        console.log(response.data);
+      this.$validator.validate().then((result) => {
+        if (result) {
+          this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
         if (response.data.success) {
           $('#productModal').modal('hide');
           vm.getProducts();
+          this.$bus.$emit('messsage:push', '編輯成功', 'success');
         } else {
           $('#productModal').modal('hide');
           vm.getProducts();
@@ -241,6 +262,11 @@ export default {
         }
         // vm.products = response.data.products;
       });
+        } else {
+          this.$bus.$emit('messsage:push', '產品資訊不完整', 'danger');
+        }
+      });
+      
     },
     openDelProductModal(item) {
       const vm = this;
@@ -251,14 +277,13 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
       this.$http.delete(url).then((response) => {
-        console.log(response, vm.tempProduct);
         $('#delProductModal').modal('hide');
         vm.isLoading = false;
+        this.$bus.$emit('messsage:push', '刪除成功', 'success');
         this.getProducts();
       });
     },
     uploadFile() {
-      console.log(this);
       const uploadedFile = this.$refs.files.files[0];
       const vm = this;
       const formData = new FormData();
@@ -278,7 +303,7 @@ export default {
           vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
         } else {
           /* 外層(AlertMessage)用on去註冊它 內層用emit觸發它 */
-          this.$bus.$emit('messsage:push', response.data.message, 'danger');
+          this.$bus.$emit('messsage:push', '上傳成功', 'success');
         }
       });
     },

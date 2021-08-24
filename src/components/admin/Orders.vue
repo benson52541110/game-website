@@ -5,7 +5,7 @@
       <thead>
         <tr>
           <th>購買時間</th>
-          <th>Email</th>
+          <th>電子信箱</th>
           <th>購買款項</th>
           <th>應付金額</th>
           <th>是否付款</th>
@@ -25,10 +25,10 @@
               </li>
             </ul>
           </td>
-          <td class="text-right">{{ item.total | currency }}</td>
+          <td>{{ item.total | currency }}</td>
           <td>
             <strong v-if="item.is_paid" class="text-success">已付款</strong>
-            <span v-else class="text-muted">尚未起用</span>
+            <span v-else class="text-muted">未付款</span>
           </td>
         </tr>
       </tbody>
@@ -62,7 +62,6 @@ export default {
         vm.orders = response.data.orders;
         vm.pagination = response.data.pagination;
         vm.isLoading = false;
-        console.log(response);
       });
     },
   },
@@ -84,7 +83,6 @@ export default {
   },
   created() {
     this.getOrders();
-    console.log(process.env.APIPATH);
   },
 };
 </script>

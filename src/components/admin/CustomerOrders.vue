@@ -131,8 +131,8 @@
             v-validate="'required|email'"
             :class="{'is-invalid': errors.has('email')}"
             v-model="form.user.email" placeholder="請輸入 Email">
-          <span class="text-danger" v-if="errors.has('email')">
-            {{ errors.first('email') }}
+          <span class="text-danger " v-if="errors.has('email')">
+            必須輸入電子信箱
           </span>
         </div>
 
@@ -141,13 +141,15 @@
           <input type="text" class="form-control" name="name" id="username"
             :class="{'is-invalid': errors.has('name')}"
             v-model="form.user.name" v-validate="'required'" placeholder="輸入姓名">
-          <span class="text-danger" v-if="errors.has('name')">姓名必須輸入</span>
+          <span class="text-danger" v-if="errors.has('name')">必須輸入姓名</span>
         </div>
 
         <div class="form-group">
           <label for="usertel">收件人電話</label>
-          <input type="tel" class="form-control" id="usertel"
-            v-model="form.user.tel" placeholder="請輸入電話">
+          <input type="tel" class="form-control" name="tel" id="usertel" 
+          :class="{'is-invalid': errors.has('tel')}"
+            v-model="form.user.tel" v-validate="'required'" placeholder="請輸入電話">
+            <span class="text-danger" v-if="errors.has('tel')">必須輸入電話</span>
         </div>
 
         <div class="form-group">
@@ -204,7 +206,6 @@ export default {
       vm.isLoading = true;
       this.$http.get(url).then((response) => {
         vm.products = response.data.products;
-        console.log(response);
         vm.isLoading = false;
       });
     },
@@ -215,7 +216,6 @@ export default {
       this.$http.get(url).then((response) => {
         vm.product = response.data.product;
         $('#productModal').modal('show');
-        console.log(response);
         vm.status.loadingItem = '';
       });
     },
@@ -228,7 +228,6 @@ export default {
         qty,
       };
       this.$http.post(url, { data: cart }).then((response) => {
-        console.log(response);
         vm.status.loadingItem = '';
         vm.getCart();
         $('#productModal').modal('hide');
@@ -240,7 +239,6 @@ export default {
       vm.isLoading = true;
       this.$http.get(url).then((response) => {
         vm.cart = response.data.data;
-        console.log(response);
         vm.isLoading = false;
       });
     },
@@ -261,7 +259,6 @@ export default {
       };
       vm.isLoading = true;
       this.$http.post(url, { data: coupon }).then((response) => {
-        console.log(response);
         vm.getCart();
         vm.isLoading = false;
       });
@@ -274,8 +271,10 @@ export default {
       this.$validator.validate().then((result) => {
         if (result) {
           this.$http.post(url, { data: order }).then((response) => {
-            console.log('訂單已建立', response);
+            console.log('訂單建立成功', response);
             if (response.data.success) {
+              this.$bus.$emit('messsage:push', '訂單建立成功', 'success');
+
               vm.$router.push(`/customer_checkout/${response.data.orderId}`);
             }
             // vm.getCart();
@@ -283,6 +282,7 @@ export default {
           });
         } else {
           console.log('欄位不完整');
+          this.$bus.$emit('messsage:push', '欄位不完整', 'danger');
         }
       });
     },

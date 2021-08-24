@@ -75,7 +75,10 @@ div [class^="col-"]{
 .card{
   transition:0.5s;
   cursor:pointer;
-  margin: 0 3px;
+  margin: 0 2px;
+  padding: .5em;
+  border: 2px solid;
+  border-style:double;
 }
 .card-title{  
   font-size:15px;

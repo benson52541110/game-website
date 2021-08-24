@@ -5,8 +5,8 @@
         <img class="swiper-img" :src="item.imgUrl">
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-    <div class="swiper-button-next" slot="button-next"></div>
+      <div class="swiper-button-prev swiper-button-disabled" slot="button-prev"></div>
+    <div class="swiper-button-next swiper-button-disabled" slot="button-next"></div>
     </swiper>
   </div>
 </template>
@@ -63,6 +63,14 @@
     width: 100%;
   }
 
+  .swiper-button-next, .swiper-button-prev {
+    transition: opacity .5s;
+}
+
+.swiper-button-disabled {
+     opacity: 0 !important;
+}
+
   .slide{
     display: flex;
     justify-content: center;
@@ -76,5 +84,7 @@
     z-index: 99;
     bottom: 30px;
   }
-  
+  .swiper-button-prev,.swiper-button-next{
+    margin: 0 430px;
+  }
 </style>

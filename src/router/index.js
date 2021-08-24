@@ -22,8 +22,7 @@ Vue.use(Router);
 export default new Router({
   /* 當router-link被點擊時 添加額外的class */
   linkActiveClass: 'active',
-  routes: [
-    {
+  routes: [{
       /* 網頁名稱不是既定名稱時(如亂碼) 導向login頁面 */
       path: '*',
       redirect: 'login',
@@ -39,8 +38,7 @@ export default new Router({
       path: '/frontEnd',
       name: 'FrontEnd',
       component: FrontEnd,
-      children: [
-        {
+      children: [{
           path: 'Main',
           name: 'Main',
           component: Main,
@@ -77,45 +75,50 @@ export default new Router({
       path: '/admin',
       name: 'Dashboard',
       component: Dashboard,
-      children: [
-        {
+      children: [{
           path: 'products',
           name: 'Products',
           component: Products,
-          meta: { requiresAuth: true },
+          meta: {
+            requiresAuth: true
+          },
         },
         {
           path: 'coupons',
           name: 'Coupons',
           component: Coupons,
-          meta: { requiresAuth: true },
+          meta: {
+            requiresAuth: true
+          },
         },
         {
           path: 'orders',
           name: 'Orders',
           component: Orders,
-          meta: { requiresAuth: true },
+          meta: {
+            requiresAuth: true
+          },
         },
-      ],
-    },
-
-    {
-      path: '/',
-      name: 'Dashboard',
-      component: Dashboard,
-      children: [
         {
           path: 'customer_order',
           name: 'CustomerOrder',
           component: CustomerOrder,
+          meta: {
+            requiresAuth: true
+          },
         },
         {
           path: 'customer_checkout/:orderId',
           name: 'CustomerCheckout',
           component: CustomerCheckout,
+          meta: {
+            requiresAuth: true
+          },
         },
       ],
     },
+
+
 
   ],
 });

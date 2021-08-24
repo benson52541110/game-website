@@ -6,7 +6,7 @@
                 </div>
             </div>
             <div class="col-md-8 content">
-                <h2>標題名稱</h2>
+                <h2>瓦羅蘭</h2>
                 <span class="text-muted">發布於 2020-05-30</span>
                 <div class="text-column">人類最偉大的精神，莫過於執著堅持理想永不放棄。而斑鳩的男主角森羅也說過這樣的話：
                     "不留遺憾地繼續走下去直至盡頭。我，沒有出生，就不會死去。理想事物，沒有滿足，就絕不屈服。這樣，即使是死去，也不會後悔。"
@@ -35,24 +35,15 @@
     </div>
 </template>
 
-<script>
-    export default{
-        data() {
-            return {
-            };
-        }
-    };
-</script>
-
 <style scoped>
     .newProduct{
         display: flex;
         justify-content: center;
     }
     .row{
-        width: 80%;
+        width: 85%;
         display: flex;
-
+        
     }
 
     .image-container{
@@ -64,9 +55,13 @@
     .content h2{
         font-weight: 700;
         font-size: 2.5rem;
+        margin:0 0 10px 0;
+
     }
 
     .text-column{
+        margin:10px 0;
         font-size: 1.5rem;
+        line-height:1.5em
     }
 </style>

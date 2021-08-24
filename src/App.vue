@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script>
+<script> 
 export default {
   name: 'App',
 };
@@ -12,6 +12,10 @@ export default {
 
 <style lang="scss">
 @import "./assets/all";
+html, body {
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
 #app {
     padding: 0px;
     margin: 0px;
@@ -20,6 +24,7 @@ export default {
     left: 0px;
     width: 100%;
     height: 100%;
-    border: hidden;
+      font-family: 'Noto Sans TC', sans-serif;
+
   }
 </style>

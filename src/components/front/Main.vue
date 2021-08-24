@@ -21,12 +21,13 @@
   body {
     margin: 0;
     padding: 0;
+    background-color:gray;
+
   }
 
 .main{
   display: flex;
   flex-direction: column;
-  background-color:gray;
 }
 
   .main-navigation {

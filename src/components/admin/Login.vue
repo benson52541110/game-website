@@ -37,6 +37,10 @@ export default {
       const vm = this;
       this.$http.post(api, vm.user).then((response) => {
         if (response.data.success) {
+          /* 將token&expired 存放在前端 */
+          const token = response.data.token;
+          const expired = response.data.expired;
+          document.cookie = `hexToken=${token};expires=${new Date(expired)};`;
           vm.$router.push('/admin/products');
         }
       });

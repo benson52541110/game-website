@@ -24,5 +24,10 @@ export default {
     Navbar,
     Alert,
   },
+  created() {
+    /* 將在前端存放的cookie往後端發送 */
+    const myCookie = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+    this.$http.defaults.headers.common.Authorization = `${myCookie}`;
+  },
 };
 </script>
